@@ -1,0 +1,86 @@
+<div class="p-4 border rounded-xl">
+  <h2 class="text-xl font-bold mb-4">Subir archivo Excel / CSV / Google Sheet</h2>
+
+  <input type="file" (change)="onFileSelected($event)" accept=".xlsx,.xls,.csv" />
+
+  <!-- Lista de hojas detectadas -->
+  <div *ngIf="sheetNames.length > 0" class="mt-6">
+    <h3 class="text-lg font-semibold mb-2">Hojas detectadas</h3>
+
+    <div class="flex gap-2 overflow-x-auto">
+      <button
+        *ngFor="let sheet of sheetNames"
+        (click)="selectSheet(sheet)"
+        class="px-4 py-2 rounded-lg border"
+        [class.bg-blue-500]="sheet === selectedSheet"
+        [class.text-white]="sheet === selectedSheet"
+      >
+        {{ sheet }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Vista previa -->
+  <div *ngIf="previewRows.length > 0" class="mt-6">
+    <h3 class="text-lg font-semibold mb-2">Vista previa (3 filas)</h3>
+
+    <table class="min-w-full border text-sm">
+      <thead>
+        <tr>
+          <th *ngFor="let col of columns" class="border px-2 py-1">
+            {{ col }}
+          </th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let row of previewRows">
+          <td *ngFor="let col of columns" class="border px-2 py-1">
+            {{ row[col] }}
+          </td>
+        </tr>
+        <tr>
+          <td *ngFor="let col of columns" class="border px-2 py-1">
+            ...
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+<!-- Renombrar columnas -->
+<div *ngIf="mapping.length > 0" class="mt-8">
+  <h3 class="text-lg font-semibold mb-2">Renombrar columnas</h3>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+    <div *ngFor="let m of mapping; let i = index" class="flex items-center gap-4">
+      <div class="w-1/2 font-semibold border p-2 rounded">
+        {{ m.original }}
+      </div>
+
+      <input
+        class="w-1/2 border p-2 rounded"
+        placeholder="Nuevo nombre..."
+        [(ngModel)]="m.newName"
+        (input)="onNameInput($event, m)"
+      />
+    </div>
+
+  </div>
+</div>
+
+<!-- Resultado JSON -->
+<div *ngIf="jsonResult" class="mt-8">
+  <h3 class="text-lg font-semibold mb-2">JSON generado</h3>
+
+  <textarea
+    class="w-full h-48 border p-4 rounded font-mono text-sm"
+    readonly
+  >{{ jsonResult }}</textarea>
+</div>
+
+
+
+</div>
