@@ -1,0 +1,24 @@
+# Normalizar saltos de línea
+* text eol=lf
+
+# # Archivos donde queremos forzar LF
+# *.ts   text eol=lf
+# *.js   text eol=lf
+# *.html text eol=lf
+# *.css  text eol=lf
+# *.scss text eol=lf
+# *.json text eol=lf
+# *.md   text eol=lf
+
+# # Imágenes y archivos binarios (NO se tocan)
+# *.png  binary
+# *.jpg  binary
+# *.jpeg binary
+# *.gif  binary
+# *.ico  binary
+# *.webp binary
+# *.mp4  binary
+# *.mp3  binary
+
+# # Angular build output ignored as text normalization (solo por claridad)
+# dist/* binary
